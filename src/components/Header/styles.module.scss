@@ -1,1 +1,12 @@
-// TODO
+.header {
+  background-color: var(--color-background);
+  height: 105px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.logoLink {
+  display: inline-block;
+}

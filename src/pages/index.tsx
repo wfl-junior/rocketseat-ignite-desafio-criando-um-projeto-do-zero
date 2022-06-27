@@ -21,7 +21,7 @@ interface PostPagination {
 }
 
 interface HomeProps {
-  postsPagination: PostPagination;
+  posts: PostPagination;
 }
 
 // export const getStaticProps = async () => {

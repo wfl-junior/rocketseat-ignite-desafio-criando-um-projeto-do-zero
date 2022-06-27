@@ -1,8 +1,27 @@
-import { AppProps } from 'next/app';
-import '../styles/globals.scss';
+import { NextPage } from "next";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import NextNProgress from "nextjs-progressbar";
+import { Fragment } from "react";
+import "../styles/globals.scss";
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  return <Component {...pageProps} />;
-}
+const App: NextPage<AppProps> = ({ Component, pageProps }) => {
+  return (
+    <Fragment>
+      <Head>
+        <title>spacetraveling</title>
+      </Head>
 
-export default MyApp;
+      <NextNProgress
+        height={2}
+        color="var(--color-highlight)"
+        options={{ showSpinner: false }}
+        stopDelayMs={50}
+      />
+
+      <Component {...pageProps} />
+    </Fragment>
+  );
+};
+
+export default App;

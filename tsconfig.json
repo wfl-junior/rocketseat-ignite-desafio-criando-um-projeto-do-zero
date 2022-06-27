@@ -15,7 +15,8 @@
     "jsx": "preserve",
     "incremental": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "strictNullChecks": true
   },
   "include": ["next-env.d.ts", ".env.d.ts", "src"],
   "exclude": ["node_modules"]

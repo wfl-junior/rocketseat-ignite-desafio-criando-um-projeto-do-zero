@@ -1,1 +1,49 @@
-// TODO
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  > a {
+    display: block;
+
+    > h2 {
+      font-size: 1.75rem;
+      transition: color 0.2s linear;
+    }
+
+    &:hover > h2 {
+      color: var(--color-highlight);
+    }
+
+    > p {
+      margin-top: 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    > div {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      > div {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--color-info);
+
+        > svg {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  > button {
+    margin-top: 1rem;
+    color: var(--color-highlight);
+    font-size: 1.125rem;
+    align-self: flex-start;
+  }
+}

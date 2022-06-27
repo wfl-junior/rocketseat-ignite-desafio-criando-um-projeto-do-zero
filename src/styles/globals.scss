@@ -29,6 +29,7 @@
 body {
   background-color: var(--color-background);
   color: var(--color-body);
+  overflow-x: hidden;
 }
 
 body,
@@ -64,4 +65,8 @@ h5,
 h6 {
   color: var(--color-heading);
   font-weight: 700;
+}
+
+main {
+  padding-bottom: 2rem;
 }

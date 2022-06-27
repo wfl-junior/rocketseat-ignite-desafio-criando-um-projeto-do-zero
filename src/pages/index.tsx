@@ -1,14 +1,14 @@
 import { PrismicDocument } from "@prismicio/types";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import { FiCalendar, FiUser } from "react-icons/fi";
 import { getPrismicClient } from "../services/prismic";
+import commonStyles from "../styles/common.module.scss";
 import styles from "../styles/Home.module.scss";
 import { fetchWrapper } from "../utils/fetchWrapper";
+import { formatUpdateAt } from "../utils/formatUpdatedAt";
 
 type PostData = {
   title: string;
@@ -41,9 +41,7 @@ function formatPostResults(
     return {
       slug: post.uid!,
       updatedAtDateTime: updatedAt.toLocaleString(),
-      updatedAtFormatted: format(updatedAt, "dd' 'MMM' 'uuuu", {
-        locale: ptBR,
-      }),
+      updatedAtFormatted: formatUpdateAt(updatedAt),
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
@@ -85,7 +83,7 @@ const Home: NextPage<HomeProps> = ({ postsPagination }) => {
               <h2>{post.data.title}</h2>
               <p>{post.data.subtitle}</p>
 
-              <div>
+              <div className={commonStyles.postInfo}>
                 <div>
                   <FiCalendar />
                   <time dateTime={post.updatedAtDateTime}>

@@ -8,7 +8,7 @@ import { getPrismicClient } from "../services/prismic";
 import commonStyles from "../styles/common.module.scss";
 import styles from "../styles/Home.module.scss";
 import { fetchWrapper } from "../utils/fetchWrapper";
-import { formatUpdateAt } from "../utils/formatUpdatedAt";
+import { formatFirstPublicationDate } from "../utils/formatFirstPublicationDate";
 
 type PostData = {
   title: string;
@@ -17,9 +17,8 @@ type PostData = {
 };
 
 interface Post {
-  slug: string;
-  updatedAtDateTime: string;
-  updatedAtFormatted: string;
+  uid: string;
+  first_publication_date: string;
   data: PostData;
 }
 
@@ -35,20 +34,17 @@ interface HomeProps {
 function formatPostResults(
   results: PrismicDocument<PostData, string, string>[],
 ): Post[] {
-  return results.map((post): Post => {
-    const updatedAt = new Date(post.first_publication_date);
-
-    return {
-      slug: post.uid!,
-      updatedAtDateTime: updatedAt.toLocaleString(),
-      updatedAtFormatted: formatUpdateAt(updatedAt),
+  return results.map(
+    (post): Post => ({
+      uid: post.uid!,
+      first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
         author: post.data.author,
       },
-    };
-  });
+    }),
+  );
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
@@ -78,7 +74,7 @@ const Home: NextPage<HomeProps> = ({ postsPagination }) => {
 
       <div className={styles.posts}>
         {posts.map(post => (
-          <Link key={post.slug} href={`/post/${post.slug}`}>
+          <Link key={post.uid} href={`/post/${post.uid}`}>
             <a>
               <h2>{post.data.title}</h2>
               <p>{post.data.subtitle}</p>
@@ -86,8 +82,10 @@ const Home: NextPage<HomeProps> = ({ postsPagination }) => {
               <div className={commonStyles.postInfo}>
                 <div>
                   <FiCalendar />
-                  <time dateTime={post.updatedAtDateTime}>
-                    {post.updatedAtFormatted}
+                  <time dateTime={post.first_publication_date}>
+                    {formatFirstPublicationDate(
+                      new Date(post.first_publication_date),
+                    )}
                   </time>
                 </div>
 
